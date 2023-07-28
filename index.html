@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentações de Slides</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        iframe {
+            width: 80%;
+            height: 80%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <iframe id="slideFrame" src="" frameborder="0"></iframe>
+
+    <script>
+        const slideFrame = document.getElementById('slideFrame');
+        const slides = [
+            'apresentacoes/slide1.pptx',
+            'apresentacoes/slide2.pptx',
+            'apresentacoes/slide3.pptx'
+        ];
+        let currentSlide = 0;
+        const slideInterval = 5000; // Intervalo em milissegundos (5 segundos)
+
+        function loadSlide(index) {
+            slideFrame.src = slides[index];
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            loadSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            loadSlide(currentSlide);
+        }
+
+        function startSlideShow() {
+            loadSlide(currentSlide);
+            setInterval(() => {
+                nextSlide();
+            }, slideInterval);
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowRight') {
+                nextSlide();
+            } else if (event.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        startSlideShow();
+    </script>
+</body>
+</html>
